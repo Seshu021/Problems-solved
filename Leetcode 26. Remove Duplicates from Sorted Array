@@ -1,0 +1,15 @@
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        arr=[]
+        k=0
+        n=len(nums)
+        for i in nums:
+            if i not in arr:
+                arr.append(i)
+                k+=1
+        for j in range(0,len(arr)):
+            nums[j] = arr[j]
+        return k
+            
+        
+        
