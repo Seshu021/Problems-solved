@@ -1,0 +1,74 @@
+import java.util.*;
+class Main{
+	public static int bfs(int row, int col, int R, int C, int[][] arr){
+		Queue<ArrayList<Integer>> q = new LinkedList<>();
+		ArrayList<Integer> l1 = new ArrayList<>();
+		int path = 0;
+		l1.add(row);
+		l1.add(col);
+		l1.add(path);
+		q.add(l1);
+		
+		arr[row][col] =0; 
+		int[] altrow = {1, -1, 0, 0};
+		int[] altcol = {0, 0, 1, -1};
+		
+		while (!q.isEmpty()){
+			ArrayList<Integer> cur = new ArrayList<>();
+			cur = q.poll();
+			int currow = cur.get(0);
+			int curcol = cur.get(1);
+			int curpath = cur.get(2);
+
+					
+			for (int i = 0;i < 4;i++){
+				int ar = currow + altrow[i];
+				int ac = curcol + altcol[i];
+				
+				if (ar > -1 && ar < R && ac >=0 && ac < C){
+					if (arr[ar][ac] == 2) return curpath;
+					if (arr[ar][ac] == 1){
+						ArrayList<Integer> l2 = new ArrayList<>();
+						l2.add(ar);
+						l2.add(ac);
+						l2.add(curpath+1);
+						q.add(l2);
+						arr[ar][ac] = 0;
+					}
+				}
+				
+							
+			}
+		}
+		return 0;
+			
+		
+		
+		
+	}
+	
+	
+	
+	public static void main(String[] args){
+		int path = 0;
+		Scanner sc = new Scanner(System.in);
+		int m = sc.nextInt();
+		int n = sc.nextInt();
+		int[][] arr = new int[m][n];
+		for (int i = 0; i< m; i++){
+			for (int j = 0; j< n ;j++){
+				arr[i][j] = sc.nextInt();
+			}
+		}
+		for (int i = 0; i< m; i++){
+			for (int j = 0; j< n ;j++){
+				if (arr[i][j] == 3){
+					path = bfs(i,j,m,n,arr);
+					break;
+				}
+			}
+		}
+		System.out.println(path);
+		
+	}
+}
