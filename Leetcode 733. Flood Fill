@@ -1,0 +1,49 @@
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int row = image.length;
+        int col = image[0].length;
+        int og = image[sr][sc];
+
+        if (og == color){
+            return image;
+        }
+
+        Queue<ArrayList<Integer>> q = new LinkedList<>();
+		ArrayList<Integer> l1 = new ArrayList<>();
+        l1.add(sr);
+        l1.add(sc);
+        q.add(l1);
+        image[sr][sc] = color;
+
+        int[] altrow = {1, -1, 0, 0};
+        int[] altcol = {0, 0, 1, -1};
+
+        while(!q.isEmpty()){
+            ArrayList<Integer> cur = new ArrayList<>();
+            cur = q.poll();
+            int currow = cur.get(0);
+            int curcol = cur.get(1);
+            for (int i =0;i < 4;i++){
+                int ar = currow + altrow[i];
+                int ac = curcol + altcol[i];
+                if (ar > -1 && ar < row && ac > -1 && ac < col){
+                    if (image[ar][ac] == og){
+                        ArrayList<Integer> l2 = new ArrayList<>();
+                        l2.add(ar);
+                        l2.add(ac);
+                        q.add(l2);
+                        image[ar][ac] = color;
+                    }
+                }
+            }
+
+
+            
+        }
+        return image;
+
+
+        
+        
+    }
+}
